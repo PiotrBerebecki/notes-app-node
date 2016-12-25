@@ -38,8 +38,12 @@ var getNote = (title) => {
   console.log('Getting note', title);
 };
 
-var removeNote = (title) => {
-  console.log('Removing note', title);
+var removeNote = (title) => { 
+  var notes = fetchNotes();
+  var updatedNotes = notes.filter(note => note.title !== title);
+  saveNotes(updatedNotes);
+  // return true if note has been removed
+  return notes.length !== updatedNotes.length;
 };
 
 
