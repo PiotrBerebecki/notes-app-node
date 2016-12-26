@@ -1,3 +1,5 @@
+# Notes App - Node
+
 ## Getting Started
 
     > git clone https://github.com/PiotrBerebecki/notes-app-node.git
