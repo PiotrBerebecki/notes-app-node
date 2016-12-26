@@ -7,7 +7,34 @@ var notes = require('./notes.js');
 // In-build process log in not user friendly so
 // we will be using yargs instead
 // console.log('process', process.argv);
-const argv = yargs.argv;
+
+const titleOptions = {
+  describe: 'Title of note',
+  demand: true,
+  alias: 't' // instead of --title we can now run -t
+             // e.g. node app.js remove -t note2
+};
+
+const bodyOptions = {
+  describe: 'Add note body',
+  demand: true,
+  alias: 'b'
+};
+
+const argv = yargs
+  .command('add', 'Add a new note', {
+    title: titleOptions,
+    body: bodyOptions
+  })
+  .command('list', 'List all notes')
+  .command('read', 'Read a note', {
+    title: titleOptions
+  })
+  .command('remove', 'Remove a note', {
+    title: titleOptions
+  })
+  .help() // add help flag (node app.js add --help)
+  .argv;
 var command = argv._[0];
 
 // Add a note
