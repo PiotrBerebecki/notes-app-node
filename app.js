@@ -14,24 +14,37 @@ console.log('Command', command);
 // console.log('process', process.argv);
 console.log('yargs', argv);
 
+// Add a note
 if (command === 'add') {
-  var note = notes.addNote(argv.title, argv.body);
-  if (note) {
+  var newNote = notes.addNote(argv.title, argv.body);
+  if (newNote) {
     console.log('Note created');
-    console.log('---');
-    console.log('Title:', note.title);
-    console.log('Body:', note.body);
+    notes.logNote(newNote);
   } else {
     console.log('Note title taken');
   }
+  
+// List notes
 } else if (command === 'list') {
   notes.getAll();
+  
+// Show body of a selected note
 } else if (command === 'read') {
-  notes.getNote(argv.title);
+  let searchedNote = notes.getNote(argv.title);
+  if (searchedNote) {
+    console.log('Note found');
+    notes.logNote(searchedNote);
+  } else {
+    console.log('Note not found');
+  }
+
+// Remove a note
 } else if (command === 'remove') {
-  var wasNoteRemoved = notes.removeNote(argv.title);
-  var message = wasNoteRemoved ? 'Note was removed' : 'Note not found';
+  let wasNoteRemoved = notes.removeNote(argv.title);
+  let message = wasNoteRemoved ? 'Note was removed' : 'Note not found';
   console.log(message);
+  
+// Handle unrecognised commnads
 } else {
   console.log('Command not recognised');
 }
